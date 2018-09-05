@@ -1,5 +1,6 @@
 #include <iostream>
 #include "List.h"
+#include <string>
 
 using namespace std;
 
@@ -29,9 +30,10 @@ void menu() {
 }
 
 int main() {
-    List<int> myList;
-    List<int>::Iterator i(&myList);
-    int data, pos;
+    List<string> myList;
+    List<string>::Iterator i(&myList);
+    string data;
+    int pos;
 
     setlocale(LC_ALL, "Russian");
     menu();
@@ -55,12 +57,12 @@ int main() {
                 case 4:
                     cout << "¬ведите значение: " << endl;
                     cin >> data;
-                    cout << myList.contain(answer) << endl;
+                    cout << myList.contain(data) << endl;
                     break;
                 case 5:
                     cout << "¬ведите номер в списке: " << endl;
                     cin >> data;
-                    cout << myList.getValueByNumber(data);
+                    cout << myList.getValueByNumber(pos);
                     break;
                 case 6:
                     cout << "¬ведите номер в списке: " << endl;
