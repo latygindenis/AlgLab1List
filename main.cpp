@@ -1,8 +1,49 @@
 #include <iostream>
 #include "List.h"
 #include <string>
+#include <ctime>
 
 using namespace std;
+
+void testList (){
+    List<int> testList;
+    int num;
+    int min, max;
+
+    int ins = 0, del = 0, fnd = 0;
+    cout<<"Введите количество элементов:"<<endl;
+    cin>>num;
+    cout<<"Введите нижнюю границу значений:"<<endl;
+    cin>>min;
+    cout<<"Введите верхнюю границу значений:"<<endl;
+    cin>>max;
+    for (int i = 0; i < num; i++)
+    {
+        testList.addToEnd(min + rand()%num);
+    }
+    for (int i = 0; i < num; i++)
+    {
+//Вставка
+        int val = min + rand()%max;
+        testList.addNodeByNumber(rand()%num, val);
+        ins += testList.operationCount;
+//Удаление
+        testList.deleteNodeByNumber(rand()%num);
+        del += testList.operationCount;
+//Поиск
+        testList.getPosByValue(min + rand()%max);
+        fnd += testList.operationCount;
+    }
+    ins = ins / num;
+    del = del / num;
+    fnd = fnd / num;
+    system("cls");
+    cout<<"Среднее сложность вставки: "<<ins<<endl;
+    cout<<"Среднее сложность удаления: "<<del<<endl;
+    cout<<"Среднее сложность поиска: "<<fnd<<endl;
+    testList.cleanList();
+}
+
 
 void menu() {
 
@@ -25,11 +66,13 @@ void menu() {
     cout << "16   проверка состояния итератора" << endl;
     cout << "17   прочитать текущее значение" << endl;
     cout << "18   изменить текщее значение" << endl;
+    cout << "19   протестировать операции удаления, вставки, поиска" << endl;
     cout << "99   выход" << endl;
 
 }
 
 int main() {
+    srand( time(0) );
     List<string> myList;
     List<string>::Iterator i(&myList);
     string data;
@@ -123,6 +166,9 @@ int main() {
                     cin >> data;
                     i.write(data);
                     break;
+                case 19:
+                    testList();
+                    break;
                 case 99:
                     return 0;//Выход
                     break;
@@ -158,6 +204,5 @@ int main() {
 
         }
     }
-
     return 0;
 }

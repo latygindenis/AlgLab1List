@@ -43,6 +43,7 @@ public:
 
 
     int size = 0;
+    int operationCount = 0;
 
     class Node {
     public:
@@ -165,18 +166,21 @@ public:
     }
 
     Node *getNodeByNumber(int number) {
+        operationCount = 0;
         Node *node;
         if (number / size > 0.5) {
             node = head->prev;
-            for (int i = 0; i < size - number; i++) {
+            for (int i = 0; i < size - number; i++, operationCount++) {
                 if (i == number) { break; }
                 node = node->prev;
+
             }
         } else {
             node = head->next;
-            for (int i = 0; i < number; i++) {
+            for (int i = 0; i < number; i++, operationCount++) {
                 if (i == number) { break; }
                 node = node->next;
+
             }
         }
         return node;
@@ -213,17 +217,19 @@ public:
     }
 
     void addNodeByNumber(int number, T data) {
+        operationCount = 0;
         if (number == size) {
             addToEnd(data);
+            operationCount++;
         } else if (number == 0) {
             addToStart(data);
+            operationCount++;
         } else {
             Node *node = new Node;
             node->data = data;
             Node *buf = head->next;
-            for (int i = 0; i < number; i++) {
+            for (int i = 0; i < number; i++, operationCount++) {
                 buf = buf->next;
-                cout << buf->data << endl;
             }
 
             node->next = buf;
@@ -241,6 +247,7 @@ public:
                 break;
             }
             node = node->next;
+            operationCount++;
         }
     }
 
@@ -261,6 +268,7 @@ public:
     }
 
     void deleteNodeByNumber(int number) {
+        operationCount=0;
         deleteNode(getNodeByNumber(number));
     }
 
@@ -274,6 +282,7 @@ public:
     }
 
     int getPosByValue(T value) {
+        operationCount = 0;
         Node *node = head->next;
         int position = 0;
         while (node) {
@@ -282,8 +291,9 @@ public:
             }
             node = node->next;
             position++;
+            operationCount++;
         }
-        throw ITERATOR_END_ERR;
+        return NULL;
     }
 
     virtual ~List() {
