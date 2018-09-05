@@ -111,7 +111,13 @@ public:
 
         T &operator*() { return read(); }
 
-
+        bool getState(){
+            if (this->node == NULL){
+                return false;
+            } else{
+                return true;
+            }
+        }
 
         friend class List<T>;
 
@@ -277,7 +283,7 @@ public:
             node = node->next;
             position++;
         }
-        return -1;
+        throw ITERATOR_END_ERR;
     }
 
     virtual ~List() {
