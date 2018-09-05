@@ -8,8 +8,8 @@
 
 #define EMPTY_LIST_ERR 1
 #define INVALID_INDEX_ERR 2
-#define ITERATOR_END 3
-#define ITERATOR_BEGIN 4
+#define ITERATOR_END_ERR 3
+#define ITERATOR_BEGIN_ERR 4
 
 
 #include <iostream>
@@ -72,16 +72,21 @@ public:
 
 
         Iterator *last() {
+            if (list->isEmpty()) throw EMPTY_LIST_ERR;
             node = list->head->prev;
             return this;
         };
 
         Iterator &operator--(int) {
+            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+            if(isBegin()) throw ITERATOR_BEGIN_ERR;
             node = node->prev;
             return *this;
         };
 
         Iterator &operator++(int) {
+            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+            if(isEnd()) throw ITERATOR_END_ERR;
             node = node->next;
             return *this;
         };
@@ -94,7 +99,19 @@ public:
             return node->prev == NULL;
         }
 
-        T &operator*() { return node->data; }
+        T read(){
+            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+            return node->data;
+        }
+
+        void write(T data){
+            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+            node->data = data;
+        }
+
+        T &operator*() { return read(); }
+
+
 
         friend class List<T>;
 
@@ -262,7 +279,6 @@ public:
         }
         return -1;
     }
-
 
     virtual ~List() {
         cleanList();
