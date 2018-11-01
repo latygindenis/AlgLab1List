@@ -42,7 +42,7 @@ public:
 
 
     int size = 0;
-    int operationCount = 0;
+    long long operationCount = 0;
 
     class Node {
     public:
@@ -196,6 +196,8 @@ public:
 
         if (end == nullptr) {
             begin = end = new Node(data);
+            begin->next = end;
+            end->prev = begin;
         } else {
             Node *node = new Node();
             node->data = data;

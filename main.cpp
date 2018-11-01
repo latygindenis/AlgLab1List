@@ -11,7 +11,7 @@ void testList() {
     int num;
     int min, max;
 
-    int ins = 0, del = 0, fnd = 0;
+    long long ins = 0, del = 0, fnd = 0;
     cout << "Введите количество элементов:" << endl;
     cin >> num;
     cout << "Введите нижнюю границу значений:" << endl;
@@ -19,18 +19,18 @@ void testList() {
     cout << "Введите верхнюю границу значений:" << endl;
     cin >> max;
     for (int i = 0; i < num; i++) {
-        testList.addToEnd(min + rand() % num);
+        testList.addToEnd(min + rand() % (max - min));
     }
     for (int i = 0; i < num; i++) {
 //Вставка
-        int val = min + rand() % max;
+        int val = min + rand() % (max - min);
         testList.addNodeByNumber(rand() % num, val);
         ins += testList.operationCount;
 //Удаление
         testList.deleteNodeByNumber(rand() % num);
         del += testList.operationCount;
 //Поиск
-        testList.getPosByValue(min + rand() % max);
+        testList.getPosByValue(min + rand() % (max - min));
         fnd += testList.operationCount;
     }
     ins = ins / num;
