@@ -23,17 +23,16 @@ public:
 
     // Конструктор по умолчанию
     List() {
-        head = new Node();
+        begin = end = nullptr;
     };
 
 
     // Конструктор копирования
     List(List &list) {
-        head = new Node();
-        Node *n = list.head;
+        begin = new Node();
 
-        head->next = n->next;
-
+        Node *n = list.begin;
+        begin->next = n->next;
         n = n->next;
         while (n) {
             addToEnd(n->data);
@@ -50,10 +49,19 @@ public:
         Node *next;
         Node *prev;
         T data;
+
+        Node(T data) {
+            this->data = data;
+        }
+
+        Node() {
+            next = prev = nullptr;
+        }
     };
 
-    Node *head; //Указатели на начало и конец
 
+    Node *begin;
+    Node *end;
 
 
     class Iterator {
@@ -67,55 +75,55 @@ public:
 
         Iterator *first() {
             if (list->isEmpty()) throw EMPTY_LIST_ERR;
-            node = list->head->next;
+            node = list->begin;
             return this;
         };
 
 
         Iterator *last() {
             if (list->isEmpty()) throw EMPTY_LIST_ERR;
-            node = list->head->prev;
+            node = list->end;
             return this;
         };
 
         Iterator &operator--(int) {
-            if(list->isEmpty()) throw EMPTY_LIST_ERR;
-            if(isBegin()) throw ITERATOR_BEGIN_ERR;
+            if (list->isEmpty()) throw EMPTY_LIST_ERR;
+            if (isBegin()) throw ITERATOR_BEGIN_ERR;
             node = node->prev;
             return *this;
         };
 
         Iterator &operator++(int) {
-            if(list->isEmpty()) throw EMPTY_LIST_ERR;
-            if(isEnd()) throw ITERATOR_END_ERR;
+            if (list->isEmpty()) throw EMPTY_LIST_ERR;
+            if (isEnd()) throw ITERATOR_END_ERR;
             node = node->next;
             return *this;
         };
 
         bool isEnd() {
-            return node->next == NULL;
+            return node->next == nullptr;
         };
 
         bool isBegin() {
-            return node->prev == NULL;
+            return node->prev == nullptr;
         }
 
-        T read(){
-            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+        T read() {
+            if (list->isEmpty()) throw EMPTY_LIST_ERR;
             return node->data;
         }
 
-        void write(T data){
-            if(list->isEmpty()) throw EMPTY_LIST_ERR;
+        void write(T data) {
+            if (list->isEmpty()) throw EMPTY_LIST_ERR;
             node->data = data;
         }
 
         T &operator*() { return read(); }
 
-        bool getState(){
-            if (this->node == NULL){
+        bool getState() {
+            if (this->node == nullptr) {
                 return false;
-            } else{
+            } else {
                 return true;
             }
         }
@@ -129,15 +137,13 @@ public:
     }
 
     void cleanList() {
-        Node *node = head->next;
+        Node *node = begin;
         while (node) {
-            Node *buf = node;
-            buf = buf->next;
+            Node *buf = node->next;
             delete node;
             node = buf;
         }
-        head->next = NULL;
-        head->prev = NULL;
+        begin = end = nullptr;
         size = 0;
     }
 
@@ -146,7 +152,7 @@ public:
     }
 
     bool contain(T t) {
-        Node *node = head->next;
+        Node *node = begin->next;
         while (node) {
             if (node->data == t) {
                 return true;
@@ -165,59 +171,62 @@ public:
         getNodeByNumber(number)->data = newData;
     }
 
-    Node *getNodeByNumber(int number) {
+    Node *getNodeByNumber(float number) {
         operationCount = 0;
         Node *node;
+
         if (number / size > 0.5) {
-            node = head->prev;
+            node = end;
             for (int i = 0; i < size - number; i++, operationCount++) {
                 if (i == number) { break; }
                 node = node->prev;
 
             }
         } else {
-            node = head->next;
+            node = begin;
             for (int i = 0; i < number; i++, operationCount++) {
                 if (i == number) { break; }
                 node = node->next;
-
             }
         }
         return node;
     }
 
     void addToEnd(T data) { //Добавить в конец
-        Node *node = new Node();
-        node->data = data;
 
-        if (head->prev == NULL) {
-            head->prev = node;
-            head->next = node;
+        if (end == nullptr) {
+            begin = end = new Node(data);
         } else {
-            head->prev->next = node;
-            node->prev = head->prev;
-            head->prev = node;
+            Node *node = new Node();
+            node->data = data;
+
+            end->next = node;
+            node->prev = end;
+            end = node;
         }
+
         size++;
     }
 
     void addToStart(T data) { //Добавить в начало
-        Node *node = new Node();
-        node->data = data;
 
-        if (head->prev == NULL) {
-            head->prev = node;
-            head->next = node;
+        if (begin == nullptr) {
+            begin = end = new Node(data);
         } else {
-            head->next->prev = node;
-            node->next = head->next;
-            head->next = node;
+            Node *node = new Node();
+            node->data = data;
+
+            begin->prev = node;
+            node->next = begin;
+            begin = node;
         }
         size++;
+
     }
 
     void addNodeByNumber(int number, T data) {
         operationCount = 0;
+
         if (number == size) {
             addToEnd(data);
             operationCount++;
@@ -225,12 +234,11 @@ public:
             addToStart(data);
             operationCount++;
         } else {
+
+
             Node *node = new Node;
             node->data = data;
-            Node *buf = head->next;
-            for (int i = 0; i < number; i++, operationCount++) {
-                buf = buf->next;
-            }
+            Node *buf = getNodeByNumber(number);
 
             node->next = buf;
             buf->prev->next = node;
@@ -240,7 +248,7 @@ public:
     }
 
     void deleteNodeByValue(T data) {
-        Node *node = head->next;
+        Node *node = begin;
         while (node) {
             if (node->data == data) {
                 deleteNode(node);
@@ -252,13 +260,13 @@ public:
     }
 
     void deleteNode(Node *node) {
-        if (node->prev == NULL) {
-            head->next = node->next;
-            node->next->prev = NULL;
+        if (node->prev == nullptr) {
+            begin = node->next;
+            node->next->prev = nullptr;
             delete node;
-        } else if (node->next == NULL) {
-            head->prev = node->prev;
-            node->prev->next = NULL;
+        } else if (node->next == nullptr) {
+            end = node->prev;
+            node->prev->next = nullptr;
             delete node;
         } else {
             node->next->prev = node->prev;
@@ -268,12 +276,12 @@ public:
     }
 
     void deleteNodeByNumber(int number) {
-        operationCount=0;
+        operationCount = 0;
         deleteNode(getNodeByNumber(number));
     }
 
     void show() {
-        Node *node = head->next;
+        Node *node = begin;
         while (node) {
             cout << node->data << " ";
             node = node->next;
@@ -283,7 +291,7 @@ public:
 
     int getPosByValue(T value) {
         operationCount = 0;
-        Node *node = head->next;
+        Node *node = begin;
         int position = 0;
         while (node) {
             if (node->data == value) {
@@ -293,12 +301,11 @@ public:
             position++;
             operationCount++;
         }
-        return NULL;
+        return -1;
     }
 
     virtual ~List() {
         cleanList();
-        delete head;
     }
 };
 

@@ -5,74 +5,72 @@
 
 using namespace std;
 
-void testList (){
+void testList() {
+
     List<int> testList;
     int num;
     int min, max;
 
     int ins = 0, del = 0, fnd = 0;
-    cout<<"Ââåäèòå êîëè÷åñòâî ýëåìåíòîâ:"<<endl;
-    cin>>num;
-    cout<<"Ââåäèòå íèæíþþ ãðàíèöó çíà÷åíèé:"<<endl;
-    cin>>min;
-    cout<<"Ââåäèòå âåðõíþþ ãðàíèöó çíà÷åíèé:"<<endl;
-    cin>>max;
-    for (int i = 0; i < num; i++)
-    {
-        testList.addToEnd(min + rand()%num);
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð²:" << endl;
+    cin >> num;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¸Ð¶Ð½ÑŽÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹:" << endl;
+    cin >> min;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²ÐµÑ€Ñ…Ð½ÑŽÑŽ Ð³Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹:" << endl;
+    cin >> max;
+    for (int i = 0; i < num; i++) {
+        testList.addToEnd(min + rand() % num);
     }
-    for (int i = 0; i < num; i++)
-    {
-//Âñòàâêà
-        int val = min + rand()%max;
-        testList.addNodeByNumber(rand()%num, val);
+    for (int i = 0; i < num; i++) {
+//Ð’ÑÑ‚Ð°Ð²ÐºÐ°
+        int val = min + rand() % max;
+        testList.addNodeByNumber(rand() % num, val);
         ins += testList.operationCount;
-//Óäàëåíèå
-        testList.deleteNodeByNumber(rand()%num);
+//Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ
+        testList.deleteNodeByNumber(rand() % num);
         del += testList.operationCount;
-//Ïîèñê
-        testList.getPosByValue(min + rand()%max);
+//ÐŸÐ¾Ð¸ÑÐº
+        testList.getPosByValue(min + rand() % max);
         fnd += testList.operationCount;
     }
     ins = ins / num;
     del = del / num;
     fnd = fnd / num;
-    system("cls");
-    cout<<"Ñðåäíåå ñëîæíîñòü âñòàâêè: "<<ins<<endl;
-    cout<<"Ñðåäíåå ñëîæíîñòü óäàëåíèÿ: "<<del<<endl;
-    cout<<"Ñðåäíåå ñëîæíîñòü ïîèñêà: "<<fnd<<endl;
+    cout << "Ð¡Ñ€ÐµÐ´Ð½ÐµÐµ ÑÐ»Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ð²ÑÑ‚Ð°Ð²ÐºÐ¸: " << ins << endl;
+    cout << "Ð¡Ñ€ÐµÐ´Ð½ÐµÐµ ÑÐ»Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ: " << del << endl;
+    cout << "Ð¡Ñ€ÐµÐ´Ð½ÐµÐµ ÑÐ»Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ð¿Ð¾Ð¸ÑÐºÐ°: " << fnd << endl;
     testList.cleanList();
 }
 
 
 void menu() {
 
-    cout << "1	îïðîñ ðàçìåðà ñïèñêà" << endl;
-    cout << "2	î÷èñòêà ñïèñêà" << endl;
-    cout << "3	ïðîâåðêà ñïèñêà íà ïóñòîòó" << endl;
-    cout << "4	îïðîñ íàëè÷èÿ çàäàííîãî çíà÷åíèÿ" << endl;
-    cout << "5	÷òåíèå çíà÷åíèÿ ñ çàäàííûì íîìåðîì â ñïèñêå" << endl;
-    cout << "6	èçìåíåíèå çíà÷åíèÿ ñ çàäàííûì íîìåðîì â ñïèñêå" << endl;
-    cout << "7	ïîëó÷åíèå ïîçèöèè â ñïèñêå ñ çàäàííûì çíà÷åíèåì" << endl;
-    cout << "8	âêëþ÷åíèå íîâîãî çíà÷åíèÿ â êîíåö" << endl;
-    cout << "9	âêëþ÷åíèå íîâîãî çíà÷åíèÿ â íà÷àëî" << endl;
-    cout << "10	âêëþ÷åíèå íîâîãî çíà÷åíèÿ â ïîçèöèþ ñ çàäàííûì íîìåðîì" << endl;
-    cout << "11	óäàëåíèå çàäàííîãî çíà÷åíèÿ èç ñïèñêà" << endl;
-    cout << "12	óäàëåíèå çíà÷åíèÿ èç ïîçèöèè ñ çàäàííûì íîìåðîì" << endl;
-    cout << "-----------Äåéñòâèÿ ñ èòåðàòîðîì-------------------" << endl;
-    cout << "13   óñòàíîâêà íà ïåðâîå çíà÷åíèå â ñïèñêå" << endl;
-    cout << "14   ïåðåõîä ê ñëåäóþùåìó çíà÷åíèþ â ñïèñêå" << endl;
-    cout << "15   ïåðåõîä ê ïðåäûäóùåìó çíà÷åíèþ" << endl;
-    cout << "16   ïðîâåðêà ñîñòîÿíèÿ èòåðàòîðà" << endl;
-    cout << "17   ïðî÷èòàòü òåêóùåå çíà÷åíèå" << endl;
-    cout << "18   èçìåíèòü òåêùåå çíà÷åíèå" << endl;
-    cout << "19   ïðîòåñòèðîâàòü îïåðàöèè óäàëåíèÿ, âñòàâêè, ïîèñêà" << endl;
-    cout << "99   âûõîä" << endl;
+    cout << "1	Ð¾Ð¿Ñ€Ð¾Ñ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° ÑÐ¿Ð¸ÑÐºÐ°" << endl;
+    cout << "2	Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° ÑÐ¿Ð¸ÑÐºÐ°" << endl;
+    cout << "3	Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° ÑÐ¿Ð¸ÑÐºÐ° Ð½Ð° Ð¿ÑƒÑÑ‚Ð¾Ñ‚Ñƒ" << endl;
+    cout << "4	Ð¾Ð¿Ñ€Ð¾Ñ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ" << endl;
+    cout << "5	Ñ‡Ñ‚ÐµÐ½Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼ Ð² ÑÐ¿Ð¸ÑÐºÐµ" << endl;
+    cout << "6	Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼ Ð² ÑÐ¿Ð¸ÑÐºÐµ" << endl;
+    cout << "7	Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ Ð² ÑÐ¿Ð¸ÑÐºÐµ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸ÐµÐ¼" << endl;
+    cout << "8	Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð½Ð¾Ð²Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð² ÐºÐ¾Ð½ÐµÑ†" << endl;
+    cout << "9	Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð½Ð¾Ð²Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð¾" << endl;
+    cout << "10	Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð½Ð¾Ð²Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð² Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼" << endl;
+    cout << "11	ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ°" << endl;
+    cout << "12	ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¸Ð· Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼" << endl;
+    cout << "-----------Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ Ñ Ð¸Ñ‚ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð¾Ð¼-------------------" << endl;
+    cout << "13   ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð½Ð° Ð¿ÐµÑ€Ð²Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² ÑÐ¿Ð¸ÑÐºÐµ" << endl;
+    cout << "14   Ð¿ÐµÑ€ÐµÑ…Ð¾Ð´ Ðº ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÐµÐ¼Ñƒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸ÑŽ Ð² ÑÐ¿Ð¸ÑÐºÐµ" << endl;
+    cout << "15   Ð¿ÐµÑ€ÐµÑ…Ð¾Ð´ Ðº Ð¿Ñ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰ÐµÐ¼Ñƒ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸ÑŽ" << endl;
+    cout << "16   Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ñ Ð¸Ñ‚ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°" << endl;
+    cout << "17   Ð¿Ñ€Ð¾Ñ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ" << endl;
+    cout << "18   Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ñ‚ÐµÐºÑ‰ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ" << endl;
+    cout << "19   Ð¿Ñ€Ð¾Ñ‚ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ, Ð²ÑÑ‚Ð°Ð²ÐºÐ¸, Ð¿Ð¾Ð¸ÑÐºÐ°" << endl;
+    cout << "99   Ð²Ñ‹Ñ…Ð¾Ð´" << endl;
 
 }
 
 int main() {
-    srand( time(0) );
+    srand(time(0));
     List<string> myList;
     List<string>::Iterator i(&myList);
     string data;
@@ -98,51 +96,51 @@ int main() {
                     cout << myList.isEmpty() << endl;
                     break;
                 case 4:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     cout << myList.contain(data) << endl;
                     break;
                 case 5:
-                    cout << "Ââåäèòå íîìåð â ñïèñêå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << endl;
                     cin >> data;
-                    cout << myList.getValueByNumber(pos);
+                    cout << myList.getValueByNumber(pos) << endl;
                     break;
                 case 6:
-                    cout << "Ââåäèòå íîìåð â ñïèñêå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << endl;
                     cin >> pos;
-                    cout << "Ââåäèòå íîâîå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð²Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     myList.updateValueByNumber(pos, data);
                     break;
                 case 7:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     cout << myList.getPosByValue(data);
                     break;
                 case 8:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     myList.addToEnd(data);
                     break;
                 case 9:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     myList.addToStart(data);
                     break;
                 case 10:
-                    cout << "Ââåäèòå íîìåð â ñïèñêå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << endl;
                     cin >> pos;
-                    cout << "Ââåäèòå íîâîå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð²Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     myList.addNodeByNumber(pos, data);
                     break;
                 case 11:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     myList.deleteNodeByValue(data);
                     break;
                 case 12:
-                    cout << "Ââåäèòå íîìåð â ñïèñêå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << endl;
                     cin >> pos;
                     myList.deleteNodeByNumber(pos);
                     break;
@@ -162,7 +160,7 @@ int main() {
                     cout << i.read() << endl;
                     break;
                 case 18:
-                    cout << "Ââåäèòå çíà÷åíèå: " << endl;
+                    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << endl;
                     cin >> data;
                     i.write(data);
                     break;
@@ -170,15 +168,14 @@ int main() {
                     testList();
                     break;
                 case 99:
-                    return 0;//Âûõîä
-                    break;
+                    return 0;//Ð’Ñ‹Ñ…Ð¾Ð´
                 default:
                     break;
             }
-            if (myList.size > 0){
+            if (myList.size > 0) {
                 myList.show();
-            } else{
-                cout<<"Ïóñòîé ñïèñîê"<<endl;
+            } else {
+                cout << "ÐŸÑƒÑÑ‚Ð¾Ð¹ ÑÐ¿Ð¸ÑÐ¾Ðº" << endl;
             }
         }
         catch (int code) {
